@@ -1,0 +1,150 @@
+/*
+Variable: bien trong css
+*/
+
+:root{
+    --text-color: red
+}
+
+h1 {
+    color: var(--text-color);
+}
+
+/*
+% : thi se la lay % theo the chua no 
+*/
+
+.box {
+    width: 50%;
+    height: 100px;
+    background-color: var(--text-color);
+}
+
+/*rem va em*/
+
+html {
+    font-size: 100%;
+}
+
+h1 {
+    font-size: 1rem;
+}
+
+/* vw va vh: no se la phan tram theo trinh duyet*/
+
+.box {
+    width: 50;
+    height: 100px;
+    background-color: var(--text-color);
+}
+
+/*padding border magin*/
+
+/*box-sizing = do lon mong muon - padding...*/
+
+/*background-clip/origin: cho phep do mau tu phan nao minh muon*/
+
+/*lop gia
+:root - tao bien 
+:hover - hoat dong khi di chuot vao 
+:active - hoat dong khi nhan chuot vao
+:first-child - select con dau
+:last-child - select con cuoi
+*/
+
+/* element gia - khong can html
+::before - nhu 1 the html
+::after - nhu 1 the html
+::first-letter - chu cai dau tien
+::first-line - dong dau 
+::selection - boi chuot vao se hoat dong
+*/
+
+
+
+
+
+/*POSITION
+relative - tuong doi( lay chinh vi tri ban dau cua chinh no lam toa do)
+absolute - tuyet doi ( phu thuoc the cha gan nhat co thuoc tinh positon)
+fixed - phu thuoc khung trinh duyet
+sticky - k khuyen cao 
+*/
+
+h1{
+    position: relative;
+    top: 50px;
+}
+
+h1{
+    position: relative;
+    top: 50px;
+}
+
+.box {
+    width: 100%;
+    height: 120px;
+    background-color: black;
+    position: relative;
+}
+
+.box-child {
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+box {
+    /* Flexbox cơ bản */
+
+/* Bật chế độ Flexbox cho phần tử cha */
+display: flex;         /* hoặc inline-flex */
+
+/* Xác định hướng sắp xếp các phần tử con */
+flex-direction: row;   /* theo hàng ngang (mặc định) */
+flex-direction: column;/* theo cột dọc */
+
+/* Xử lý khi các item vượt quá chiều dài của container */
+flex-wrap: nowrap;     /* tất cả nằm trên 1 dòng (mặc định) */
+flex-wrap: wrap;       /* tự động xuống dòng nếu tràn */
+flex-wrap: wrap-reverse; /* xuống dòng nhưng đảo ngược thứ tự dòng */
+
+/* Kích thước cơ sở của item trước khi phân chia không gian */
+flex-basis: 200px;     /* ví dụ: item có kích thước ban đầu 200px */
+
+/* Căn chỉnh các item theo trục chính (main axis) */
+justify-content: flex-start;   /* dồn về đầu */
+justify-content: flex-end;     /* dồn về cuối */
+justify-content: center;       /* căn giữa */
+justify-content: space-between;/* các item cách đều nhau, 2 đầu sát biên */
+justify-content: space-around; /* cách đều nhưng có khoảng ở ngoài cùng */
+
+/* Căn chỉnh bản thân từng item trên trục chính */
+justify-self: center;  /* chỉ áp dụng trong Grid, không dùng cho Flexbox */
+
+/* Căn chỉnh các hàng (khi có nhiều dòng item) theo trục cross */
+align-content: flex-start; /* dồn các hàng lên trên */
+align-content: flex-end;   /* dồn các hàng xuống dưới */
+align-content: center;     /* căn giữa theo chiều dọc */
+
+/* Căn chỉnh 1 item riêng lẻ trên trục cross */
+align-self: flex-start; /* item dính lên trên */
+align-self: flex-end;   /* item dính xuống dưới */
+align-self: center;     /* item căn giữa dọc */
+
+/* Điều khiển độ giãn ra khi container còn chỗ trống */
+flex-grow: 1; /* số càng lớn item càng giãn nhiều */
+
+/* Điều khiển độ co lại khi container thiếu chỗ */
+flex-shrink: 1; /* số càng lớn item co lại nhiều hơn */
+
+/* Thuộc tính shorthand cho grow, shrink, basis */
+flex: 1;  /* tương đương: flex-grow: 1; flex-shrink: 1; flex-basis: 0; */
+
+/* Thay đổi thứ tự hiển thị của item */
+order: 2; /* mặc định là 0, số nhỏ hơn sẽ hiển thị trước */
+
+}
