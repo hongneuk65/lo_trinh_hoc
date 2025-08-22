@@ -288,3 +288,126 @@ const sinhVien = [sv1, sv2];
 
 console.log(sinhVien[1].name)
 console.log(sinhVien[1]["name"])
+
+// for in, for of 
+
+const Sv1 = {
+    name: 'hong',
+    address: 'nghe an',
+    score: 10
+}
+
+const Sv2 = {
+    name: 'dinh',
+    address: 'nghe an',
+    score: 10
+}
+
+const Sv3 = {
+    name: 'hongnguyen',
+    address: 'nghe an',
+    score: 10
+}
+
+const Sv4 = {
+    name: 'dinhxinh',
+    address: 'nghe an',
+    score: 10
+}
+
+const sinhVientest = [Sv1, Sv2, Sv3, Sv4];
+console.log(">>> check sinh vien: ",sinhVientest)
+
+sinhVientest.forEach((item, index) => {
+    console.log(item.name);
+})
+
+const personTest = {
+    email: "hongnguyen@gmail.com",
+    age: 20,
+    address: "vietnam"
+}
+
+for(let key in personTest ) {
+    console.log(key, personTest[key]);
+}
+console.log("========================")
+for(let item of Object.values(personTest)) {
+    console.log(item);
+}
+
+for(let [key, value] of Object.entries(personTest)) {
+    console.log(key, value);
+}
+
+// baì tập Lab 3
+
+const products = [
+    {
+        name: "T-shirt",
+        price: "20",
+        inStock: true
+    },
+    {
+        name: "polo",
+        price: "50",
+        inStock: true
+    },
+    {
+        name: "jean",
+        price: "100",
+        inStock: false
+    },
+    {
+        name: "gloves",
+        price: "15",
+        inStock: false 
+    },
+    {
+        name: "shoes",
+        price: "200",
+        inStock: true
+    }
+];
+//1. in ra tên sp đầu 
+console.log(products[0].name);
+//2. thay đổi giá sp 2 thành 150 và in ra 
+products[1].price = "150";
+for(let value of products) {
+    console.log(value);
+}
+console.log("=========================");
+//3. thêm sản phẩm và in ra   
+const new1 = {
+    name: "boots",
+    price: "40",
+    inStock: true
+}
+products.push(new1);
+for(let value of products) {
+    console.log(value);
+}
+console.log("=========================");
+//4. xoá sp và in ra
+products.pop();
+for(let value of products) {
+    console.log(value);
+}
+//5. lấy tên sp bằng forEach 
+products.forEach((value, index) => {
+    console.log(`sản phẩm ${index +1} là: ${value.name}`);
+})
+//6. dùng map() đẻ tạo mảng mới chỉ chứa giá sp
+const usemap = products.map((item, index) => {
+    return item.price;
+})
+console.log(usemap);
+//7. dùng filter đẻ lấy các mặt hàng true 
+const useFilter = products.filter((item, index) => {
+    return item.inStock = true;
+})
+console.log(useFilter);
+//8. dùng for...in để duyệt qua thuộc tính của sản phẩm đầu tiên
+for(let key in products[0]) {
+    console.log(products[0][key]);
+}
