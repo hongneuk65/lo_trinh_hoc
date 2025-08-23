@@ -1,0 +1,68 @@
+/* Reset một chút mặc định */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f0f2f5;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Khung form */
+#login {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  width: 300px;
+}
+
+/* Tiêu đề nhỏ */
+#login p {
+  margin: 10px 0 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Ô nhập */
+#login input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: 0.3s;
+}
+/* Nút login */
+#login button {
+  width: 100%;
+  padding: 12px;
+  background: #1877f2;     /* xanh dương */
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Hiệu ứng hover */
+#login button:hover {
+  background: #0f5bd3;     /* xanh đậm hơn khi hover */
+}
+
+
+/* Hiệu ứng focus */
+#login input:focus {
+  border-color: #1877f2;
+  box-shadow: 0 0 5px rgba(24, 119, 242, 0.4);
+}
