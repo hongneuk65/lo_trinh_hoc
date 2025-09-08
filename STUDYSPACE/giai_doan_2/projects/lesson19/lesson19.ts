@@ -1,6 +1,7 @@
-//union
+// Allases type 
+type hongType =  number | string;
 
-function addNumberOrString2(a: number | string, b: number | string) {
+function addNumberOrString(a: hongType, b: hongType) {
   // Nếu cả hai tham số đều là số
   if (typeof a === 'number' && typeof b === 'number') {
     return a + b; // cộng số
@@ -15,4 +16,4 @@ function addNumberOrString2(a: number | string, b: number | string) {
   throw new Error('Parameters must be numbers or strings');
 }
 
-console.log("check >> :", addNumberOrString2('h','nguyen'))
+console.log("check >> :", addNumberOrString('h','nguyen'))
