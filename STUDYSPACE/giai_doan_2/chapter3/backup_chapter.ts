@@ -78,3 +78,69 @@ function Greet (greeting: string, ...names: string[] ) {
 
 console.log(multiply(10,20,20,30,40));
 console.log(Greet("xin chao moi nguoi", 'hong', 'dinh','chit'))
+
+// lesson 32 
+//Function Overloading 
+
+function add111(a: number | string, b: number | string): number | string {
+  if (typeof a === "number" && typeof b === "number") {
+    return a + b;
+  }
+  if (typeof a === "string" && typeof b === "string") {
+    return a + b;
+  }
+  throw new Error("Both parameters must be numbers or both strings");
+}
+
+// function addNew (a: number, b: number): number;
+
+function addNew (a: string, b: string): string;
+
+function addNew (a: string, b: string) {
+    return a + b;
+}
+
+// console.log(addNew(6,9), addNew("nguyen van", "hong"))
+// lesson 33
+//classes
+
+class Person{
+    ssn: string;
+    firstName: string;
+    lastName: string;
+
+    constructor(ssn: string, firstName: string, lastName: string) {
+        this.ssn = ssn;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    getFullName(): string {
+        return `${this.firstName} ${this.lastName}`;
+    }
+
+}
+
+let hong = new Person("23", "hong" , "nguyen");
+
+console.log(hong);
+console.log(hong.getFullName());
+
+// Access Modifiers 
+
+class Employee {
+    public empCode!: string;
+    private empName!: string;
+
+    constructor(empCode: string, empName: string) {
+        this.empCode = empCode;
+        this.empName = empName;
+    }
+    //getter setter
+}
+
+let emp = new Employee('a','v');
+emp.empCode="123";
+// emp.empName = 'hong';
+
+console.log(emp);
