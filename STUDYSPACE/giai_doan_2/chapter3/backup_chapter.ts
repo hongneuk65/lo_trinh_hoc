@@ -144,3 +144,150 @@ emp.empCode="123";
 // emp.empName = 'hong';
 
 console.log(emp);
+
+// lesspn 35 
+//readonly
+
+class Person1 {
+    readonly birthDate: Date;
+
+    constructor(birthDate: Date) {
+        this.birthDate = birthDate;
+    }
+}
+
+let person = new Person1(new Date(2005, 10, 3));
+// person.birthDate = new Date(2005, 10, 3);
+
+//lesson 36 
+// Getters and Setters 
+
+class Person2 {
+    private _age!: number;
+    public firstName!: string;
+    public lastName!: string;
+
+    constructor(_age: number, firstName: string, lastName: string) {
+        this._age = _age;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    get age(){
+        return this._age;
+    }
+
+    set currentAge(age2: number){
+        if(age2 < 0 || age2 > 150) {
+            throw Error("invalid age");
+        }
+        this._age = age2;
+    }
+
+}
+
+let person2 = new Person2(20, "nguyen van " , "hong");
+let checkAge = person2.age; // getter
+// person2.currentAge(37);
+console.log('check tuoi: ', person2);
+
+// person2.age = 20;
+
+
+class Person3 {
+    constructor(private firstName: string, private lastName: string) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    getFullName(): string {
+        return `${this.firstName} ${this.lastName}`;
+    }
+
+    describe(): string {
+        return `This is ${this.firstName} ${this.lastName}.`;
+    }
+}
+
+// để kế thừa 1 class, chúng ta sử dụng keyword extends
+class Employee1 extends Person3 {
+    private jobTitle: string;
+
+    constructor(
+        firstName: string,
+        lastName: string,
+        jobTitle: string
+    ) {
+        // call the constructor of the Person class:
+        super(firstName, lastName);
+        this.jobTitle = jobTitle;
+    }
+}
+
+// let employee = new Employee('John','Doe','Front-end Developer');
+// Employee kế thừa lại Person => dùng được method của parent
+
+let employee = new Employee1('Hoi Dan IT', 'Eric', 'Web Developer');
+
+console.log(employee.getFullName());
+console.log(employee.describe());
+
+//Static Methods and Properties
+
+class Circle {
+    static pi: number = 3.14;
+    public test: number = 69;
+
+    static calculateArea(radius: number): number {
+        return this.pi * radius * radius;
+    }
+}
+
+let t = new Circle();
+console.log("check pi =", Circle.calculateArea(10))
+
+// Abstract Classes 
+// lesson 38
+
+
+abstract class Employee39 {
+    constructor(private firstName: string, private lastName: string) {
+    }
+
+    abstract getSalary(): number; // abstract method
+
+    // normal method
+    get fullName(): string {
+        return `${this.firstName} ${this.lastName}`;
+    }
+
+    compensationStatement(): string {
+        return `${this.fullName} makes ${this.getSalary()} a month.`;
+    }
+}
+
+
+// const e1 = new Employee39("hong", "nguyen")
+
+class FullTimeEmployee extends Employee39 {
+    constructor(firstName: string, lastName: string, private salary: number) {
+        super(firstName, lastName);
+    }
+    getSalary(): number {
+
+        return this.salary;
+    }
+}
+
+class Contractor extends Employee39 {
+    constructor(firstName: string, lastName: string, private rate: number, private hours: number) {
+        super(firstName,lastName)
+    }
+    getSalary(): number {
+        return this.rate * this.hours;
+    }
+}
+
+
+const test1 = new FullTimeEmployee("hong", "nguyen", 1000);
+console.log(test1.getSalary()) 
