@@ -291,3 +291,27 @@ class Contractor extends Employee39 {
 
 const test1 = new FullTimeEmployee("hong", "nguyen", 1000);
 console.log(test1.getSalary()) 
+
+//lesson 40 
+
+
+
+interface IPerson {
+    firstName: string;
+    lastName: string;
+    adđress: string;
+}
+
+function getFullName(person: IPerson) {
+    return `${person.firstName} ${person.lastName}`;
+}
+
+let person40 = {
+    firstName: "hong",
+    lastName: "nguyen",
+    adđress: "nghe an"
+};
+
+console.log(getFullName(person40))
+
+// interface 
