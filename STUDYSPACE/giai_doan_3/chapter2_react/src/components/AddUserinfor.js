@@ -1,6 +1,6 @@
 import React from "react";
 
-class Userinfor extends React.Component{
+class AddUserinfor extends React.Component{
 
         state = {
         name: 'hong nguyen van',
@@ -10,7 +10,7 @@ class Userinfor extends React.Component{
 
     handleOnChangeInput = (event) => {
         this.setState({
-            name: event.target.value
+            [event.target.name]: event.target.value
         })
         console.log(event, event.target.value)
     }
@@ -25,22 +25,27 @@ class Userinfor extends React.Component{
     handleOnSubmit = (event) => {
         event.preventDefault();// nganư reload lại trang
         console.log(this.state)
+        this.props.handleAddNewUser({
+            id: Math.floor((Math.random()*100)+1) + "random",
+            name: this.state.name,
+            age: this.state.age
+        })
 
     }
     render() {
         return (
             <div> my name is {this.state.name} and i'm {this.state.age}
                 <form onSubmit={(event) => this.handleOnSubmit(event)}>
-                    <lable>your name </lable>
+                    <label>your name </label>
                     <input 
+                        name="name"
                         value ={this.state.name}
                         type="text"
                         onChange={(event) => this.handleOnChangeInput(event)}
                     />
-                    <button>submit</button>
-                    <br></br>
-                    <lable>your age </lable>
+                    <label>your age </label>
                     <input 
+                        name="age"
                         value ={this.state.age}
                         type="text"
                         onChange={(event) => this.handleOnChangeInput(event)}
@@ -51,4 +56,4 @@ class Userinfor extends React.Component{
     }
 }
 
-export default Userinfor;
+export default AddUserinfor;
