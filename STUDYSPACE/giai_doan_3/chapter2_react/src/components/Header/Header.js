@@ -2,20 +2,21 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, NavLink,Link } from 'react-router-dom';
 
 const Header = () => {
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container>
-                <Navbar.Brand href="#home">Hong hoc web</Navbar.Brand>
+                {/* <Navbar.Brand href="#home">Hong hoc web</Navbar.Brand> */}
+                <Link to='/' className='navbar-brand'>LOGO</Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
 
-                        <Link to='/' className='nav-link'>Home</Link>
-                        <Link to='/Users' className='nav-link'>Users</Link>
-                        <Link to='/Admin' className='nav-link'>Admin</Link>
+                        <NavLink to='/' className='nav-link'>Home</NavLink>
+                        <NavLink to='/Users' className='nav-link'>Users</NavLink>
+                        <NavLink to='/Admin' className='nav-link'>Admin</NavLink>
 
                         {/* <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="/Users">Users</Nav.Link>
@@ -24,17 +25,15 @@ const Header = () => {
                     </Nav>
 
                     <Nav>
-                        <NavDropdown title="Settings" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Log in</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">
-                                Log out
-                            </NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Profile</NavDropdown.Item>
+                        <button className='btn-login'>Log in</button>
+                        <button className='btn-signup'>Sign up</button>
+                        {/* <NavDropdown title="Settings" id="basic-nav-dropdown">
+                            <NavDropdown.Item >Log in</NavDropdown.Item>
+                            <NavDropdown.Item >Log out</NavDropdown.Item>
+                            <NavDropdown.Item >Profile</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">
-                                Separated link
-                            </NavDropdown.Item>
-                        </NavDropdown>
+                            <NavDropdown.Item > Separated link</NavDropdown.Item>
+                        </NavDropdown> */}
                     </Nav>
                 </Navbar.Collapse>
             </Container>
