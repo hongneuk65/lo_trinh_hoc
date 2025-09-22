@@ -4,9 +4,8 @@ import Modal from 'react-bootstrap/Modal';
 import { AiOutlinePlusCircle } from "react-icons/ai";
 
 
-const ModalCreateUser = () => {
-    const [show, setShow] = useState(false);
-
+const ModalCreateUser = (props) => {
+    const {show, setShow} = props;
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -29,9 +28,9 @@ const ModalCreateUser = () => {
 
     return (
         <>
-            <Button variant="primary" onClick={handleShow}>
+            {/* <Button variant="primary" onClick={handleShow}>
                 Launch demo modal
-            </Button>
+            </Button> */}
 
             <Modal
                 show={show}
@@ -72,7 +71,10 @@ const ModalCreateUser = () => {
                         </div>
                         <div className="col-md-4">
                             <label className="form-label">Role </label>
-                            <select className="form-select" onChange={(event) => setRole(event.target.setRole)}>
+                            <select className="form-select" 
+                            onChange={(event) => setRole(event.target.setRole)}
+                            value={role}
+                            >
                                 <option value="USER">USER</option>
                                 <option value="ADMIN">ADMIN</option>
                             </select>

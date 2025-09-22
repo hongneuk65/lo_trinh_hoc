@@ -1,5 +1,17 @@
 .manage-user-container {
-    .user-content {}
+    padding: 10px;
+
+    .user-content {
+        .btn-add-new {
+            margin: 15px 0 ;
+
+        }
+    }
+
+    .title {
+        font-weight: 600;
+        font-size: 20px;
+    }
 }
 
 .modal-add-user {
@@ -11,12 +23,13 @@
         align-items: center;
         color: #ccc;
 
-        img{
+        img {
             max-width: 100%;
             max-height: 100%;
         }
     }
-    .label-upload{
+
+    .label-upload {
         gap: 5px;
         display: flex;
 
