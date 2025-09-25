@@ -9,7 +9,7 @@ const ModalViewUser = (props) => {
     const { show, setShow, dataUpdate } = props;
     const handleClose = () => { 
         setShow(false);
-        props.resetDataUpdate();
+        // props.resetDataUpdate();
     };
     const handleShow = () => setShow(true);
 
