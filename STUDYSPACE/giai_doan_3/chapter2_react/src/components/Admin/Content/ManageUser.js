@@ -10,7 +10,7 @@ import ModalViewUser from "./ModalViewUser";
 const ManageUser = (props) => {
 
     const [listUsers, setListUsers] = useState([]);
-    const [showModalUpdateUser, setShowModalUpdateUser] =useState(false);
+    const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
     const [dataUpdate, setDataUpdate] = useState({});
     const [showModalViewUser, setShowModalViewUser] = useState(false);
 
@@ -33,12 +33,14 @@ const ManageUser = (props) => {
 
     const [showModalCreateUser, setShowModalCreateUser] = useState(false)
 
-    const resetUpdateData = ()=> {
+    const resetUpdateData = () => {
         setDataUpdate({});
     }
 
     const handleClickBtnView = (user) => {
         setShowModalViewUser(true);
+        setDataUpdate(user);
+
     }
     return (
         <div classNameName="manage-user-container">
@@ -48,9 +50,9 @@ const ManageUser = (props) => {
                     <button className="btn btn-primary" onClick={() => setShowModalCreateUser(true)}> < AiOutlinePlusCircle /> add new users</button>
                 </div>
                 <div className="table-user-container">
-                    <TableUser listUsers={listUsers} 
-                    handleClickBtnUpdate={handleClickBtnUpdate}
-                    handleClickBtnView={handleClickBtnView}
+                    <TableUser listUsers={listUsers}
+                        handleClickBtnUpdate={handleClickBtnUpdate}
+                        handleClickBtnView={handleClickBtnView}
                     />
 
                 </div>
@@ -70,6 +72,8 @@ const ManageUser = (props) => {
                     show={showModalViewUser}
                     setShow={setShowModalViewUser}
                     dataUpdate={dataUpdate}
+                    resetUpdateData={resetUpdateData}
+
                 />
             </div>
 

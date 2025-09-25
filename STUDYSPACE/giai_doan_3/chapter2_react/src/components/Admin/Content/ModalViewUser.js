@@ -9,7 +9,7 @@ const ModalViewUser = (props) => {
     const { show, setShow, dataUpdate } = props;
     const handleClose = () => { 
         setShow(false);
-        // props.resetDataUpdate();
+        props.resetUpdateData();
     };
     const handleShow = () => setShow(true);
 
@@ -32,9 +32,9 @@ const ModalViewUser = (props) => {
             setPreviewImage(`data:image/jpeg;base64,${dataUpdate.image}`);
             }
         }
-    }, [dataUpdate]);
+    }, [dataUpdate, show]);
 
-
+    
     const handleUpLoadImage = (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
             setPreviewImage(URL.createObjectURL(event.target.files[0]));
@@ -43,6 +43,7 @@ const ModalViewUser = (props) => {
         }
 
     }
+    console.log("check render 2", dataUpdate)
 
     return (
         <>
