@@ -32,7 +32,7 @@ const ModalUpdateUser = (props) => {
                 setPreviewImage(`data:image/jpeg;base64,${dataUpdate.image}`);
             }
         }
-    }, [dataUpdate, show]);
+    }, [dataUpdate]);
 
 
     const handleUpLoadImage = (event) => {
