@@ -12,6 +12,7 @@ import ManageUser from './components/Admin/Content/ManageUser';
 import Login from './components/Admin/Auth/Login';
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { ToastContainer, toast } from 'react-toastify';
+import Register from "./components/Admin/Auth/Register";
 
 const Layout = (props) => {
     return (
@@ -27,6 +28,8 @@ const Layout = (props) => {
                 </Route>
 
                 <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+
 
             </Routes>
 

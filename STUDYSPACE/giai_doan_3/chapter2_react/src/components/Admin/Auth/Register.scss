@@ -13,8 +13,7 @@
             border: 1px solid;
 
             &:hover {
-            background: white
-                
+                background: white
             }
         }
     }
@@ -34,6 +33,7 @@
 
     .content-form {
         input {
+            padding-right: 35px;
             margin-bottom: 15px;
             margin-top: 3px;
         }
@@ -47,9 +47,23 @@
             color: white;
             background-color: black;
         }
-        .back{
+
+        .back {
             cursor: pointer;
         }
-        
+
+        .password-input {
+            position: relative;
+
+            .toggle-eye {
+                position: absolute;
+                right: 10px;
+                top: 68%;
+                transform: translateY(-50%);
+                cursor: pointer;
+                color: #666;
+            }
+        }
+
     }
 }
