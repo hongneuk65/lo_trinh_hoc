@@ -13,15 +13,26 @@ import Login from './components/Admin/Auth/Login';
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { ToastContainer, toast } from 'react-toastify';
 import Register from "./components/Admin/Auth/Register";
+import ListQuiz from "./components/User/ListQuiz";
+import DetailQuiz from "./components/User/DetailQuiz";
 
+const NotFound = () => {
+    return (
+        <div class="container mt-3 alert alert-danger">
+            404. NotFound Data With Your Current URL
+        </div>
+    )
+}
 const Layout = (props) => {
     return (
         <>
             <Routes>
                 <Route path="/" element={<App />}>
                     <Route index element={<HomPage />} />
-                    <Route path="/Users" element={<User />} />
+                    <Route path="/Users" element={<ListQuiz />} />
                 </Route>
+                <Route path="/quiz/:id" element={<DetailQuiz />} />
+
                 <Route path="/Admin" element={<Admin />}>
                     <Route index element={<DashBoard />} />
                     <Route path="manage-users" element={<ManageUser />} />
@@ -29,6 +40,7 @@ const Layout = (props) => {
 
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="*" element={<NotFound />} />
 
 
             </Routes>
