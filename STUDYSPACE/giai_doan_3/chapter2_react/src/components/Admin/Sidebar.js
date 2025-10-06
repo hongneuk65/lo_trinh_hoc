@@ -14,9 +14,11 @@ import sidebarBg from '../../assets/bg2.jpg';
 import { DiReact } from "react-icons/di";
 import { MdDashboard } from "react-icons/md"
 
-import { Link } from 'react-router-dom';
+import { Link , useNavigate} from 'react-router-dom';
+
 
 const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
+    const navigate = useNavigate();
     return (
         <>
 
@@ -41,7 +43,7 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                         }}
                     >
                         <DiReact size={'3em'} color={"00bfff"} />
-                        <span>Study React</span>
+                        <span onClick={()=> navigate('/')}>Study React</span>
                     </div>
                 </SidebarHeader>
 
@@ -51,7 +53,7 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                             icon={<MdDashboard />}
 
                         >
-                            <Link to ="/admin"/>
+                            <Link to="/admin" />
                         </MenuItem>
 
                     </Menu>
@@ -59,15 +61,22 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                         <SubMenu
 
 
-                            icon={<FaGem/>}
+                            icon={<FaGem />}
                             title="Features"
                         >
-                            <MenuItem> 
-                            Quản lý User
-                            <Link to ="/admin/manage-users"/>
+                            <MenuItem>
+                                Quản lý User
+                                <Link to="/admin/manage-users" />
 
                             </MenuItem>
-                            <MenuItem> Quản lý bài Quiz</MenuItem>
+                            <MenuItem> Quản lý bài Quiz
+                            
+                                <Link to="/admin/manage-quizzes" />
+                    
+                            
+                            </MenuItem>
+
+
                             <MenuItem> Quản lý câu hỏi</MenuItem>
                         </SubMenu>
                     </Menu>
@@ -88,7 +97,7 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                         >
                             <FaGithub />
                             <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                                nguyen van hong 
+                                nguyen van hong
                             </span>
                         </a>
                     </div>
