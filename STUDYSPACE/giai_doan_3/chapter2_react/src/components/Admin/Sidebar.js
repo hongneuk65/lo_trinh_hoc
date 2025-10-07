@@ -77,7 +77,8 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                             </MenuItem>
 
 
-                            <MenuItem> Quản lý câu hỏi</MenuItem>
+                            <MenuItem> Quản lý câu hỏi
+                            <Link to="/admin/manage-questions" /></MenuItem>
                         </SubMenu>
                     </Menu>
                 </SidebarContent>

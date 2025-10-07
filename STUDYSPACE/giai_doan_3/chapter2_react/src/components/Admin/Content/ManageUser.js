@@ -65,9 +65,9 @@ const ManageUser = (props) => {
         setDataDelete(user);
     }
     return (
-        <div classNameName="manage-user-container">
-            <div classNameName="title">manage user</div>
-            <div classNameName="user-content">
+        <div className="manage-user-container">
+            <div className="title">manage user</div>
+            <div className="user-content">
                 <div className="btn-add-new">
                     <button className="btn btn-primary" onClick={() => setShowModalCreateUser(true)}> < AiOutlinePlusCircle /> add new users</button>
                 </div>
