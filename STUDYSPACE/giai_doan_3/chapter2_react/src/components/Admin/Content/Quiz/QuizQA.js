@@ -1,33 +1,34 @@
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
-import "./Questions.scss";
+import "./QuizQA.scss";
 import { LuCircleFadingPlus } from "react-icons/lu";
 import { TbCircleDashedMinus } from "react-icons/tb";
 import { CiCircleMinus, CiCirclePlus } from 'react-icons/ci';
 import { LuImagePlus } from "react-icons/lu";
 import { v4 as uuidv4 } from 'uuid';
-import _ from 'lodash';
+import _, { get } from 'lodash';
 import "react-awesome-lightbox/build/style.css";
 import Lightbox from "react-awesome-lightbox";
-import { getAllQuizAdmin } from '../../../../services/apiServices';
+import { getAllQuizAdmin, getQuizWithQA, postUpsertQA } from '../../../../services/apiServices';
 import { postCreateNewAnswerForQuiz, postCreateNewQuestionForQuiz } from '../../../../services/apiServices';
 import { toast } from 'react-toastify';
 
-const Questions = (props) => {
-const initQuestions = [ {
-            id: uuidv4(),
-            description: '',
-            imageFile: '',
-            imageName: '',
-            answers: [
-                {
-                    id: uuidv4(),
-                    description: '',
-                    isCorrect: false
-                },
-            ]
-        }]
-    const [questions, setQuestions] = useState(initQuestions)
+
+const QuizQA = (props) => {
+    const initQuizQA = [{
+        id: uuidv4(),
+        description: '',
+        imageFile: '',
+        imageName: '',
+        answers: [
+            {
+                id: uuidv4(),
+                description: '',
+                isCorrect: false
+            },
+        ]
+    }]
+    const [questions, setQuestions] = useState(initQuizQA)
 
     const [listQuiz, setListQuiz] = useState([]);
     const [selectedQuiz, setSelectedQuiz] = useState('');
@@ -35,7 +36,52 @@ const initQuestions = [ {
 
     useEffect(() => {
         fetchQuiz()
-    }, setListQuiz)
+    }, []);
+
+    useEffect(() => {
+        if (selectedQuiz && selectedQuiz.value) {
+            fetchQuizWithQA();
+        }
+    }, [selectedQuiz])
+
+    // return a promise that resolves with a File instance
+    function urltoFile(url, filename, mimeType) {
+        if (url.startsWith('data:')) {
+            var arr = url.split(','),
+                mime = arr[0].match(/:(.*?);/)[1],
+                bstr = atob(arr[arr.length - 1]),
+                n = bstr.length,
+                u8arr = new Uint8Array(n);
+            while (n--) {
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            var file = new File([u8arr], filename, { type: mime || mimeType });
+            return Promise.resolve(file);
+        }
+        return fetch(url)
+            .then(res => res.arrayBuffer())
+            .then(buf => new File([buf], filename, { type: mimeType }));
+    }
+
+    const fetchQuizWithQA = async () => {
+        let res = await getQuizWithQA(selectedQuiz.value);
+        if (res && res.EC === 0) {
+            let newQA = [];
+            for (let i = 0; i < res.DT.qa.length; i++) {
+                let q = res.DT.qa[i];
+                if (q.imageFile) {
+                    q.imageFile =
+
+                        await urltoFile(`data:image/png;base64,${q.imageFile}`, `Question-${q.id}.png`, 'image/png');
+                    q.imageName = `Question-${q.id}.png`;
+                }
+                newQA.push(q);
+            }
+            setQuestions(newQA);
+            console.log("check", res, newQA);
+        }
+
+    }
 
     const fetchQuiz = async () => {
         let res = await getAllQuizAdmin();
@@ -152,21 +198,7 @@ const initQuestions = [ {
     }
 
     const handleSubmitQuestionForQuiz = async () => {
-        // postCreateNewAnswerForQuiz, postCreateNewQuestionForQuiz
-        // await Promise.all( questions.map(async (question) => {
-        //     const q = await postCreateNewQuestionForQuiz(
-        //         +selectedQuiz.value,
-        //         question.description,
-        //         question.imageFile);
-        //         await Promise.all(question.answers.map(async (answer) => {
-        //             await postCreateNewAnswerForQuiz(
-        //                 answer.description,
-        //                 answer.isCorrect, 
-        //                 q.DT.id)
-        //         }));
-        //     return q;
-        // }));
-        //validate quiz
+
         if (_.isEmpty(selectedQuiz)) {
             toast.error("please choose a quiz")
             return;
@@ -204,25 +236,28 @@ const initQuestions = [ {
             toast.error(`not empty description for question ${indexQ1 + 1}`)
         }
 
-
-        for (const question of questions) {
-            const q = await postCreateNewQuestionForQuiz(
-                +selectedQuiz.value,
-                question.description,
-                question.imageFile);
-            //submit answer
-            for (const answer of question.answers) {
-                await postCreateNewAnswerForQuiz(
-                    answer.description,
-                    answer.isCorrect,
-                    q.DT.id
-                )
+        let questionsClone = _.cloneDeep(questions);
+        for(let i = 0; i< questionsClone.length; i ++) {
+            if(questionsClone[i].imageFile) {
+                questionsClone[i].imageFile = 
+                await toBase64(questionsClone[i].imageFile);
             }
         }
-        toast.success("create questions and answer succeed!")
-        setQuestions(initQuestions)
+        let res = await postUpsertQA({
+            quizId: selectedQuiz.value,
+            questions: questionsClone
+        });
+        // toast.success("create questions and answer succeed!")
+        // setQuestions(initQuizQA)
 
     }
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+    });
+
     const handlePreviewImage = (questionId) => {
         let questionsClone = _.cloneDeep(questions);
         let index = questionsClone.findIndex(item => item.id === questionId);
@@ -236,9 +271,8 @@ const initQuestions = [ {
     }
 
     return (
+
         <div className="questions-container">
-            <div className="title">Mange Questions</div>
-            <hr />
             <div className="add-new-question">
                 <div className='col-6 form-group'>
                     <label className='mb-2'>select quiz</label>
@@ -253,6 +287,7 @@ const initQuestions = [ {
                 <div className='mt-3 mb-2'>Add questions:
 
                 </div>
+                {console.log("checkkkkkk", questions)}
                 {questions && questions.length > 0
                     && questions.map((question, index) => {
                         return (
@@ -262,7 +297,7 @@ const initQuestions = [ {
                                     <div className="form-floating description">
                                         <input
                                             type="text"
-                                            class="form-control"
+                                            className="form-control"
                                             placeholder="name@example.com"
                                             value={question.description}
                                             onChange={(event) => handleOnChange('QUESTION', question.id, event.target.value)}
@@ -306,10 +341,11 @@ const initQuestions = [ {
                                                     checked={answer.isCorrect}
                                                     onChange={(event) => handleAnswerQuestion('CHECKBOX', answer.id, question.id, event.target.checked)}
                                                 />
-                                                <div class="form-floating answer-name">
+                                                <div className="form-floating answer-name">
                                                     <input type="text"
                                                         className="form-control"
                                                         placeholder="name@example.com"
+                                                        value={answer.description}
                                                         onChange={(event) => handleAnswerQuestion('INPUT', answer.id, question.id, event.target.value)}
 
                                                     />
@@ -319,20 +355,15 @@ const initQuestions = [ {
                                                     <span onClick={() => handleAddRemoveAnswer('ADD', question.id)}><CiCirclePlus className='icon-add' /></span>
                                                     {question.answers.length > 1 &&
                                                         <span onClick={() => handleAddRemoveAnswer('REMOVE', question.id, answer.id)}><CiCircleMinus className='icon-remove' /></span>
-
                                                     }
-
-
                                                 </div>
                                             </div>
                                         )
                                     })}
-
                             </div>
                         )
                     })
                 }
-
                 {questions && questions.length > 0 &&
                     <div>
                         <button
@@ -342,7 +373,6 @@ const initQuestions = [ {
                             Save Question</button>
                     </div>
                 }
-
                 {isPreviewImage === true &&
                     <Lightbox
                         image={dataImagePreview.url}
@@ -350,12 +380,9 @@ const initQuestions = [ {
                         onClose={() => setIsPreviewImage(false)}
                     >
                     </Lightbox>}
-
             </div>
-
-
         </div >
     )
 }
 
-export default Questions
+export default QuizQA

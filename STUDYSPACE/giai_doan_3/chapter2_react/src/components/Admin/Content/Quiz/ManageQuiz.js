@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import './ManageQuiz.scss'
 import Select from 'react-select';
+import './ManageQuiz.scss'
 import { postCreateNewQuiz } from '../../../../services/apiServices';
 import { toast } from 'react-toastify';
 import TableQuiz from './TableQuiz';
 import { Accordion } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import QuizQA from './QuizQA';
+import AssignQUiz from './AsignQuiz';
 
 
 
@@ -107,17 +109,42 @@ const ManageQuiz = (props) => {
                                             >
                                                 Save</button>
                                         </div>
+
+
+                                        <div className='list-detail'>
+                                            <TableQuiz />
+                                        </div>
                                     </fieldset>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                </div>
+                <div className="accordion-item">
+                    <h2 className="accordion-header" id="headingTwo">
+                        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                            update Q/A Quiz
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" className="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                        <QuizQA/>
+                    </div>
+
+                </div>
+                <div className="accordion-item">
+                    <h2 className="accordion-header" id="headingThree">
+                        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                            Assign to Users
+                        </button>
+                    </h2>
+                    <div id="collapseThree" className="accordion-collapse collapse show" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                        <AssignQUiz/>
+                    </div>
+
                 </div>
             </div>
 
-            <div className='list-detail'>
-                <TableQuiz />
-            </div>
         </div>
     )
 
