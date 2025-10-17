@@ -247,6 +247,10 @@ const QuizQA = (props) => {
             quizId: selectedQuiz.value,
             questions: questionsClone
         });
+        if(res && res.EC === 0) {
+            toast.success(res.EM)
+            fetchQuizWithQA();
+        }
         // toast.success("create questions and answer succeed!")
         // setQuestions(initQuizQA)
 
