@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import './Login.scss'
 import { useNavigate } from 'react-router-dom';
 import { postLogin } from '../../../services/apiServices';
@@ -12,6 +12,8 @@ const Login = (props) => {
     const [password, setPassword] = useState('')
     const navigate = useNavigate();
     const dispath = useDispatch();
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
     const [isLoading, setIsLoading] = useState(false)
     const handleLogin = async () => {
         //validate
@@ -30,6 +32,18 @@ const Login = (props) => {
 
         }
     }
+    const handleKeyDown = (event) => {
+        console.log("check event", event.target)
+        if (event && event.key === 'Enter') {
+            if (event.target.id === 'password') {
+                handleLogin();
+            }
+            else if (event.target.id === 'email') {
+                console.log("password", password)
+                passwordRef.current.focus();
+            }
+        }
+    }
     return (
         <div className="login-container">
             <div className='header'>
@@ -46,17 +60,23 @@ const Login = (props) => {
                 <div className='form-group'>
                     <label>Email</label>
                     <input
+                        id='email'
+                        ref={emailRef}
                         type={"email"}
                         className='form-control'
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
+                        onKeyDown={(event) => handleKeyDown(event)}
                     />
                     <label>Password</label>
                     <input
+                        id='password'
+                        ref={passwordRef}
                         type={"Password"}
                         className='form-control'
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
+                        onKeyDown={(event) => handleKeyDown(event)}
                     />
                 </div>
                 <span className='forgot-password'>Forgot Password?</span>
@@ -65,7 +85,7 @@ const Login = (props) => {
                         className='btn-submit'
                         onClick={() => handleLogin()}
                         disabled={isLoading}
-                    > {isLoading === true &&< ImSpinner10 className='loaderIcon' />}
+                    > {isLoading === true && < ImSpinner10 className='loaderIcon' />}
                         <span>Login to Hugo</span>
                     </button>
 
